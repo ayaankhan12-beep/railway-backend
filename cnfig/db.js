@@ -1,10 +1,11 @@
 
+require("dotenv").config()
 
 const mongoose=  require ("mongoose")
 
 const connect = async() => {
     try {
-        await mongoose.connect( "mongodb+srv://Ayaan:ayu12345@cls.crsuq40.mongodb.net")
+        await mongoose.connect(process.env.MONOGO_URI)
 
         console.log("Mongo connect")
     } catch {
