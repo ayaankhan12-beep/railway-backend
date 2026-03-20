@@ -54,14 +54,14 @@ await user.save()
       process.env.JWT_SECRET,
       { expiresIn: "30d" }
     );
+const isProduction = process.env.NODE_ENV === "production";
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      domain: "railway-system-xx.vercel.app"
-    });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: isProduction,          // HTTPS required in production
+  sameSite: isProduction ? "none" : "lax",  // cross-site cookie
+  maxAge: 30 * 24 * 60 * 60 * 1000,        // 30 days
+});
 
     
     await transporter.sendMail({
