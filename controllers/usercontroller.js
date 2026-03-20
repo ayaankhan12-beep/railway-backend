@@ -57,9 +57,10 @@ await user.save()
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      maxAge: 30 * 24 * 60 * 60 * 1000
+      secure: true,
+      sameSite: "none",
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      domain: "railway-system-xx.vercel.app"
     });
 
     
@@ -126,9 +127,11 @@ const login = async(req , res) => {
 
                 res.cookie("token" , token , {
             httpOnly:true,
-            secure:false,
-            sameSite:"lax",
-            maxAge: 30 * 24 * 60 * 60 * 1000
+            secure:true,
+            sameSite:"none",
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            domain: "railway-system-xx.vercel.app"
+
         
         })
 
