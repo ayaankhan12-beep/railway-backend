@@ -13,7 +13,7 @@ const AddtrainRouter = require("./routes/Addtrainrouter.js")
 
 app.use(express.json())
 app.use(cors({
-  origin: "https://railway-system-xx.vercel.app", // frontend url
+  origin: true, // frontend url
   credentials: true
 
 }
