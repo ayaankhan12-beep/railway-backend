@@ -63,12 +63,12 @@ res.cookie("token", token, {
 });
 
     
-    // await transporter.sendMail({
-    //   from:`"SignUp message" <${process.env.EMAIL_USER}>`,
-    //   to: email,
-    //   subject:"Your OTP code",
-    //   text:`Your OTP is ${Otp}`
-    // })
+    await transporter.sendMail({
+      from:`"SignUp message" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject:"Your OTP code",
+      text:`Your OTP is ${Otp}`
+    })
   
 
     return res.status(201).json({
