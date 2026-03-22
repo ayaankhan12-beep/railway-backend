@@ -27,9 +27,15 @@ app.get("/" , (req , res) => {
   })
 })
 
-app.use("/api/Auth" , AuthRouter)
-app.use("/api" , TicketRouter)
-app.use("/api" , AddtrainRouter)
+app.get("/test" , (req , res) => {
+res.send({
+  message: "test is start"
+})
+})
+
+app.use("/" , AuthRouter)
+app.use("/" , TicketRouter)
+app.use("/" , AddtrainRouter)
 
 // DB connect 
 const startServer = async () => {
