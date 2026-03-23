@@ -10,7 +10,6 @@ const signUp = async (req, res) => {
   try {
     const { username, email, password  } = req.body;
 
-    console.log("req.body:" , req.body)
     if (!username || !email || !password) {
       return res.status(400).json({
         isSuccessful: false,
@@ -21,7 +20,7 @@ const signUp = async (req, res) => {
     
    const existing = await CourseModel.findOne({ email });
     if (existing) {
-      return res .status(409).json({
+      return res.status(409).json({
         isSuccessful: false,
         message: "User already exists"
       });
@@ -52,27 +51,28 @@ await user.save()
       { id: user._id , role: user.role},
       
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "5d" }
     );
 
 res.cookie("token", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production" ,          // HTTPS required in production
   sameSite: process.env.NODE_ENV === "production"  ? "none" : "lax",  // cross-site cookie
-  maxAge: 1 * 24 * 60 * 60 * 1000       // 1 day
+  maxAge: 5 * 24 * 60 * 60 * 1000       
 });
 
     
-    await transporter.sendMail({
-      from:`"SignUp message" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject:"Your OTP code",
-      text:`Your OTP is ${Otp}`
-    })
+    // await transporter.sendMail({
+    //   from:`"SignUp message" <${process.env.EMAIL_USER}>`,
+    //   to: email,
+    //   subject:"Your OTP code",
+    //   text:`Your OTP is ${Otp}`
+    // })
   
 
     return res.status(201).json({
       isSuccessful: true,
+      message: "Successfully Registered",
      userId: user._id
      
 
@@ -122,7 +122,7 @@ const login = async(req , res) => {
 
 
 
-        const token = jwt.sign({id: user._id, role:user.role} , process.env.JWT_SECRET , {expiresIn: "1d"} )
+        const token = jwt.sign({id: user._id, role:user.role} , process.env.JWT_SECRET , {expiresIn: "5d"} )
 
               
 
@@ -131,7 +131,7 @@ res.cookie("token", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production" ,          
   sameSite: process.env.NODE_ENV === "production" ? "none"  : "lax", 
-  maxAge: 1 * 24 * 60 * 60 * 1000,        // 30 days
+  maxAge: 5 * 24 * 60 * 60 * 1000,        // 30 days
 });
 
 

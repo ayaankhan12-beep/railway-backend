@@ -78,20 +78,20 @@ const booking = async (req, res) => {
 
     
 
-    // ✅ Send Email
-    // await transporter.sendMail({
-    //   from: `"Railway Ticket" <${process.env.EMAIL_USER}>`,
-    //   to: email,
-    //   subject: "Your Train Ticket 🎟️",
-    //   text: "Your ticket is attached as PDF",
-    //   attachments: [
-    //     {
-    //       filename: "ticket.pdf",
-    //       content: pdfBuffer,
-    //       contentType: "application/pdf"
-    //     }
-    //   ]
-    // });
+    
+    await transporter.sendMail({
+      from: `"Railway Ticket" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: "Your Train Ticket 🎟️",
+      text: "Your ticket is attached as PDF",
+      attachments: [
+        {
+          filename: "ticket.pdf",
+          content: pdfBuffer,
+          contentType: "application/pdf"
+        }
+      ]
+    });
 
     return res.status(201).json({
       isSuccessful: true,

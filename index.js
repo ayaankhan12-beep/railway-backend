@@ -27,11 +27,6 @@ app.get("/" , (req , res) => {
   })
 })
 
-app.get("/test" , (req , res) => {
-res.send({
-  message: "test is start"
-})
-})
 
 app.use("/" , AuthRouter)
 app.use("/" , TicketRouter)
