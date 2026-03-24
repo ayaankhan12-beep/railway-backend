@@ -76,22 +76,34 @@ console.log(result.secure_url);
       pdfBuffer = null;
     }
 
-  const mailOptions = {
-    from: process.env.SEND_EMAIL,
-    to: email,
-    subject: "Your train ticket",
-    text: `your ticket is Confirmed ${ticket._id}`,
-    attachments: {
-      filename: "pdfBuffer.pdf",
-      content: pdfBuffer,
+  // const mailOptions = {
+  //   from: process.env.SEND_EMAIL,
+  //   to: email,
+  //   subject: "Your train ticket",
+  //   text: `your ticket is Confirmed ${ticket._id}`,
+  //   attachments: {
+  //     filename: "pdfBuffer.pdf",
+  //     content: pdfBuffer,
 
 
-    }
+  //   }
 
     
-  }
-  await transporter.sendMail(mailOptions)
+  // }
+  // await transporter.sendMail(mailOptions)
   
+
+
+  console.log("Before sending email");
+
+await transporter.sendMail({
+  from: `"Railway Ticket" <${process.env.SEND_EMAIL}>`,
+  to: email,
+  subject: "Your Train Ticket 🎟️",
+  text: "Your ticket is attached as PDF"
+});
+
+console.log("After sending email");
     
 
     return res.status(201).json({
