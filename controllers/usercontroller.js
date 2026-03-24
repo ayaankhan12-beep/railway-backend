@@ -66,7 +66,7 @@ res.cookie("token", token, {
 const mailoption = {
   
     
-      from:`SignUp message <${process.env.EMAIL_USER}>`,
+      from:`SignUp message <${process.env.BREVO_USER}>`,
       to: email,
       subject:"Your OTP code",
       text:`Your OTP is ${Otp}`
