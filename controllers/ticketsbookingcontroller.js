@@ -56,7 +56,7 @@ const booking = async (req, res) => {
 
     // Upload image to cloud
     const result = await uploadTocloud(req.file.buffer);
-
+console.log(result.secure_url); 
     // Create ticket
     const ticket = await ticketsmodel.create({
       name,
@@ -77,26 +77,27 @@ const booking = async (req, res) => {
     }
 
     // Send email
-    try {
-      await transporter.sendMail({
-        from: `"Railway Ticket" <${process.env.SENDER_EMAIL}>`,
-        to: email,
-        subject: "Your Train Ticket 🎟️",
-        text: "Your ticket is attached as PDF",
-        attachments: pdfBuffer
-          ? [
-              {
-                filename: "ticket.pdf",
-                content: pdfBuffer,
-                contentType: "application/pdf",
-              },
-            ]
-          : [],
-      });
-    } catch (err) {
-      console.log("Email Error:", err.message);
-      // Fail silently, ticket is still booked
-    }
+    // try {
+    //   await transporter.sendMail({
+    //     from: `"Railway Ticket" <${process.env.SENDER_EMAIL}>`,
+    //     to: email,
+    //     subject: "Your Train Ticket 🎟️",
+    //     text: "Your ticket is attached as PDF",
+    //     attachments: pdfBuffer
+    //       ? [
+    //           {
+    //             filename: "ticket.pdf",
+    //             content: pdfBuffer,
+    //             contentType: "application/pdf",
+    //           },
+    //         ]
+    //       : [],
+    //   });
+
+    // } catch (err) {
+    //   console.log("Email Error:", err.message);
+    //   // Fail silently, ticket is still booked
+    // }
 
     return res.status(201).json({
       isSuccessful: true,
