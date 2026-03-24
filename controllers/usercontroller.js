@@ -61,29 +61,35 @@ res.cookie("token", token, {
   maxAge: 5 * 24 * 60 * 60 * 1000       
 });
 
+
+      
+const mailoption = {
+  
     
-    await transporter.sendMail({
-      from:`"SignUp message" <${process.env.EMAIL_USER}>`,
+      from:`SignUp message <${process.env.EMAIL_USER}>`,
       to: email,
       subject:"Your OTP code",
       text:`Your OTP is ${Otp}`
-    })
+    
+}
+    await transporter.sendMail(mailoption)
+      
+
+
+    
   
 
     return res.status(201).json({
       isSuccessful: true,
       message: "Successfully Registered",
-     userId: user._id
+     userId: user._id,
+  
      
-
-     
-      
-
-
       
 
     });
 
+    
     
     
   } catch (error) {
