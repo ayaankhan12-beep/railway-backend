@@ -77,27 +77,26 @@ console.log(result.secure_url);
     }
 
     // Send email
-    // try {
-    //   await transporter.sendMail({
-    //     from: `"Railway Ticket" <${process.env.SENDER_EMAIL}>`,
-    //     to: email,
-    //     subject: "Your Train Ticket 🎟️",
-    //     text: "Your ticket is attached as PDF",
-    //     attachments: pdfBuffer
-    //       ? [
-    //           {
-    //             filename: "ticket.pdf",
-    //             content: pdfBuffer,
-    //             contentType: "application/pdf",
-    //           },
-    //         ]
-    //       : [],
-    //   });
+    try {
+      await transporter.sendMail({
+        from: `"Railway Ticket" <${process.env.SENDER_EMAIL}>`,
+        to: email,
+        subject: "Your Train Ticket 🎟️",
+        text: "Your ticket is attached as PDF",
+        attachments: pdfBuffer
+          ? [
+              {
+                filename: "ticket.pdf",
+                content: pdfBuffer,
+                contentType: "application/pdf",
+              },
+            ]
+          : [],
+      });
 
-    // } catch (err) {
-    //   console.log("Email Error:", err.message);
-    //   // Fail silently, ticket is still booked
-    // }
+    } catch (err) {
+      console.log("Email Error:", err.message);
+    }
 
     return res.status(201).json({
       isSuccessful: true,
