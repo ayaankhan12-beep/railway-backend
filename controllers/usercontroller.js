@@ -63,19 +63,6 @@ res.cookie("token", token, {
 });
 
 
-      
-const mailoption = {
-  
-    
-      from: process.env.SEND_EMAIL,
-      to: email,
-      subject:"Your OTP code",
-      text:`Your OTP is ${Otp}`
-    
-}
-
-    await transporter.sendMail(mailoption)
-      
 
 
     
@@ -92,6 +79,7 @@ const mailoption = {
 
     });
 
+          
     
     
     
