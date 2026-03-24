@@ -94,16 +94,15 @@ console.log(result.secure_url);
   
 
 
-  console.log("Before sending email");
-
-await transporter.sendMail({
-  from: `"Railway Ticket" <${process.env.SEND_EMAIL}>`,
-  to: email,
-  subject: "Your Train Ticket 🎟️",
-  text: "Your ticket is attached as PDF"
-});
-
-console.log("After sending email");
+  
+    setImmediate(async () => {
+      try {
+        const pdfBuffer = await generatepdf(ticket, train);
+        await sendEmail(ticket.email, pdfBuffer);
+      } catch (err) {
+        console.log("Background error:", err.message);
+      }
+    });
     
 
     return res.status(201).json({
@@ -111,6 +110,8 @@ console.log("After sending email");
       message: "Ticket Confirmed Successfully",
       ticket,
     });
+
+
   } catch (error) {
     console.log(error);
     return res.status(500).json({
